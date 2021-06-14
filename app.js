@@ -100,16 +100,15 @@ const lightboxImage = document.querySelector('img.lightbox__image');
 
     
 function onImagesGalleryContainerClick(event) {
-  
-  const isImagesGalleryEl = event.target.classList.contains('gallery__item');
+  event.preventDefault();
+  const isImagesGalleryEl = event.target.classList.contains('gallery__image');
     if (!isImagesGalleryEl) {
         return;
   }
-  
-    event.preventDefault();
+    
     lightbox.classList.add('lightbox.is-open');
-    lightboxImage.src = "${original}";
-    lightboxImage.alt = "${description}";
+    lightboxImage.setAttribute('src', '${original}');
+    lightboxImage.setAttribute ('alt','${description}');
       
 };
 
@@ -124,9 +123,8 @@ function onCloseLightboxBtnClick(event) {
     return;
   }
   lightbox.classList.remove('lightbox.is-open');
-   lightboxImage.src ="";
-   lightboxImage.alt = "";
-
+   lightboxImage.setAttribute('src', "");
+   lightboxImage.setAttribute ('alt',  "");
 };
 
 // const lightboxOverlay = document.querySelector('div.lightbox__overlay');
