@@ -96,6 +96,7 @@ function createImagesGalleryMarkup(galleryItems) {
 
 const lightbox = document.querySelector('div.lightbox');
 const lightboxImage = document.querySelector('img.lightbox__image');
+let currentImage;
          
 function onImagesGalleryContainerClick(event) {
   event.preventDefault();
@@ -105,8 +106,7 @@ function onImagesGalleryContainerClick(event) {
   }
     
   lightbox.classList.add('is-open');
-  // console.log(event.target);
-  // console.log(event.target.previousElementSibling);
+  currentImage = event.target;
   lightboxImage.src = event.target.dataset.source;
   lightboxImage.alt = event.target.getAttribute('alt');
        
@@ -154,24 +154,54 @@ function onEscKeyPress(event) {
   }
 };
 
-const currentEl = document.querySelector('gallery__item');
 
 function onTurnOverImages(event) {
-  const LEFT_kEY_CODE = 'ArrowLeft';
-  const RIGHT_kEY_CODE = 'ArrowRight';
-  const isArrowKeyLeft = event.code === LEFT_kEY_CODE;
-  const isArrowKeyRight = event.code === RIGHT_kEY_CODE;
+  const LEFT_KEY_CODE = 'ArrowLeft';
+  const RIGHT_KEY_CODE = 'ArrowRight';
+  const isArrowKeyLeft = event.code === LEFT_KEY_CODE;
+  const isArrowKeyRight = event.code === RIGHT_KEY_CODE;
 
-  // console.log(event.target.previousSibling);
   if (isArrowKeyLeft) {
-       
-    const nextEl = currentEl.previousSibling;
-    console.log(currentEl.previousSibling);
     
-    // lightboxImage.src = event.target.closest.dataset.source;
-  // lightboxImage.alt = event.target.getAttribute('alt');
-       
+    const previousItem = currentImage.closest('li').previousElementSibling;
+    const lastItem = currentImage.closest('li').parentNode.lastElementChild;
+
+    if (previousItem) {
+
+      const previousImage = previousItem.querySelector('gallery__image');
+      lightbox.classList.add('is-open');
+      currentImage = target;
+      lightboxImage.src = previousImage.dataset.source;
+      lightboxImage.alt = previousImage.getAttribute('alt');
+    }
+   
+    else if (previousItem === null) {
+      const lastImage = lastItam.querySelector('gallery__image');
+
+    }
+    return
   }
+
+if (isArrowKeyRight) {
+    
+    const nextItem = currentImage.closest('li').nextElementSibling;
+    const fistItem = currentImage.closest('li').parentNode.fistElementChild;
+
+    if (nextItem) {
+      const nextImage = nextItem.querySelector('gallery__image');
+      lightbox.classList.add('is-open');
+      currentImage = target;
+      lightboxImage.src = nextImage.dataset.source;
+      lightboxImage.alt = nextImage.getAttribute('alt');
+    }
+   
+    else if (nextItem === null) {
+      const firstImage = fistItam.querySelector('gallery__image');
+
+    }
+    return
+  }
+
 }
 
 
