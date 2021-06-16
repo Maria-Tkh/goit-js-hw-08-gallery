@@ -96,7 +96,7 @@ function createImagesGalleryMarkup(galleryItems) {
 
 const lightbox = document.querySelector('div.lightbox');
 const lightboxImage = document.querySelector('img.lightbox__image');
-let currentImage;
+// let currentImage;
          
 function onImagesGalleryContainerClick(event) {
   event.preventDefault();
@@ -106,7 +106,7 @@ function onImagesGalleryContainerClick(event) {
   }
     
   lightbox.classList.add('is-open');
-  currentImage = event.target;
+  // currentImage = event.target;
   lightboxImage.src = event.target.dataset.source;
   lightboxImage.alt = event.target.getAttribute('alt');
        
@@ -135,7 +135,7 @@ const lightboxOverlay = document.querySelector('div.lightbox__overlay');
 lightboxOverlay.addEventListener('click', onCloseLightboxOverlayClick);
 
 function onCloseLightboxOverlayClick(event) {
-  const isCloseLightboxOverlay = event.target.classList.contains('div.lightbox__overlay');
+  const isCloseLightboxOverlay = event.target.classList.contains('lightbox__overlay');
   if (!isCloseLightboxOverlay) {
     return;
   }
@@ -154,55 +154,56 @@ function onEscKeyPress(event) {
   }
 };
 
+// window.addEventListener('keydown', onTurnOverImages);
+ 
+// function onTurnOverImages(event) {
+//   const LEFT_KEY_CODE = 'ArrowLeft';
+//   const RIGHT_KEY_CODE = 'ArrowRight';
+//   const isArrowKeyLeft = event.code === LEFT_KEY_CODE;
+//   const isArrowKeyRight = event.code === RIGHT_KEY_CODE;
 
-function onTurnOverImages(event) {
-  const LEFT_KEY_CODE = 'ArrowLeft';
-  const RIGHT_KEY_CODE = 'ArrowRight';
-  const isArrowKeyLeft = event.code === LEFT_KEY_CODE;
-  const isArrowKeyRight = event.code === RIGHT_KEY_CODE;
-
-  if (isArrowKeyLeft) {
+//   if (isArrowKeyLeft) {
     
-    const previousItem = currentImage.closest('li').previousElementSibling;
-    const lastItem = currentImage.closest('li').parentNode.lastElementChild;
+//     const previousItem = currentImage.closest('li').previousElementSibling;
+//     const lastItem = currentImage.closest('li').parentNode.lastElementChild;
 
-    if (previousItem) {
+//     if (previousItem) {
 
-      const previousImage = previousItem.querySelector('gallery__image');
-      lightbox.classList.add('is-open');
-      currentImage = target;
-      lightboxImage.src = previousImage.dataset.source;
-      lightboxImage.alt = previousImage.getAttribute('alt');
-    }
+//       const previousImage = previousItem.querySelector('gallery__image');
+//       lightbox.classList.add('is-open');
+//       currentImage = target;
+//       lightboxImage.src = previousImage.dataset.source;
+//       lightboxImage.alt = previousImage.getAttribute('alt');
+//     }
    
-    else if (previousItem === null) {
-      const lastImage = lastItam.querySelector('gallery__image');
+//     else if (previousItem === null) {
+//       const lastImage = lastItam.querySelector('gallery__image');
 
-    }
-    return
-  }
+//     }
+//     return
+//   }
 
-if (isArrowKeyRight) {
+// if (isArrowKeyRight) {
     
-    const nextItem = currentImage.closest('li').nextElementSibling;
-    const fistItem = currentImage.closest('li').parentNode.fistElementChild;
+//     const nextItem = currentImage.closest('li').nextElementSibling;
+//     const fistItem = currentImage.closest('li').parentNode.fistElementChild;
 
-    if (nextItem) {
-      const nextImage = nextItem.querySelector('gallery__image');
-      lightbox.classList.add('is-open');
-      currentImage = target;
-      lightboxImage.src = nextImage.dataset.source;
-      lightboxImage.alt = nextImage.getAttribute('alt');
-    }
+//     if (nextItem) {
+//       const nextImage = nextItem.querySelector('gallery__image');
+//       lightbox.classList.add('is-open');
+//       currentImage = target;
+//       lightboxImage.src = nextImage.dataset.source;
+//       lightboxImage.alt = nextImage.getAttribute('alt');
+//     }
    
-    else if (nextItem === null) {
-      const firstImage = fistItam.querySelector('gallery__image');
+//     else if (nextItem === null) {
+//       const firstImage = fistItam.querySelector('gallery__image');
 
-    }
-    return
-  }
+//     }
+//     return
+//   }
 
-}
+// }
 
 
 
