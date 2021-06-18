@@ -74,7 +74,7 @@ imagesGalleryContainer.addEventListener('click', onImagesGalleryContainerClick);
 
 function createImagesGalleryMarkup(galleryItems) {
         
-    return galleryItems.map(({ preview, original, description }) => {
+    return galleryItems.map(({ preview, original, description, index } ) => {
         return `
         <li class="gallery__item">
             <a
@@ -83,6 +83,7 @@ function createImagesGalleryMarkup(galleryItems) {
             >
                 <img
                     class="gallery__image"
+                    data-index="${index}"
                     src="${preview}"
                     data-source="${original}"
                     alt="${description}"
@@ -96,7 +97,9 @@ function createImagesGalleryMarkup(galleryItems) {
 
 const lightbox = document.querySelector('.js-lightbox');
 const lightboxImage = document.querySelector('img.lightbox__image');
-// let currentImage;
+
+let currentIndex;
+
          
 function onImagesGalleryContainerClick(event) {
   event.preventDefault();
@@ -106,7 +109,8 @@ function onImagesGalleryContainerClick(event) {
   }
     
   lightbox.classList.add('is-open');
-  // currentImage = event.target;
+  
+  // console.log(currentIndex=event.target.dataset.index);
   lightboxImage.src = event.target.dataset.source;
   lightboxImage.alt = event.target.getAttribute('alt');
        
@@ -143,67 +147,62 @@ function onCloseLightboxOverlayClick(event) {
   
 };
 
- window.addEventListener('keydown', onEscKeyPress);
+ window.addEventListener('keydown', onKeyPress);
 
-function onEscKeyPress(event) {
+function onKeyPress(event) {
   const ESC_KEY_CODE = 'Escape';
   const isEscKey = event.code === ESC_KEY_CODE;
+  const LEFT_KEY_CODE = 'ArrowLeft';
+  const RIGHT_KEY_CODE = 'ArrowRight';
+  const isArrowKeyLeft = event.code === LEFT_KEY_CODE;
+  const isArrowKeyRight = event.code === RIGHT_KEY_CODE;
 
   if (isEscKey) {
       onCloseModal();
   }
+
+  if (isArrowKeyLeft) {
+    onArrowLeft();
+  }
+
+  if (isArrowKeyRight) {
+      onArrowRight();
+   }
+    
 };
 
-// window.addEventListener('keydown', onTurnOverImages);
- 
-// function onTurnOverImages(event) {
-//   const LEFT_KEY_CODE = 'ArrowLeft';
-//   const RIGHT_KEY_CODE = 'ArrowRight';
-//   const isArrowKeyLeft = event.code === LEFT_KEY_CODE;
-//   const isArrowKeyRight = event.code === RIGHT_KEY_CODE;
 
-//   if (isArrowKeyLeft) {
-    
-//     const previousItem = currentImage.closest('li').previousElementSibling;
-//     const lastItem = currentImage.closest('li').parentNode.lastElementChild;
+// 1. Добавить data-index каждому элементу гал в разметку
+// 2. повесить слушателя на гал, делегирование
+// 3. При клике брать data-index и писать в currentIndex
+// 4. При отрытии модалки, вешать слушателя на keydown
+// 5. если left то onArrowLeft из предыдущего вопроса
+// 5. если right то onArrowRight из предыдущего вопроса
 
-//     if (previousItem) {
 
-//       const previousImage = previousItem.querySelector('gallery__image');
-//       lightbox.classList.add('is-open');
-//       currentImage = target;
-//       lightboxImage.src = previousImage.dataset.source;
-//       lightboxImage.alt = previousImage.getAttribute('alt');
-//     }
-   
-//     else if (previousItem === null) {
-//       const lastImage = lastItam.querySelector('gallery__image');
+function onArrowRight() {
+  if (currentIndex + 1 > galleryItems.length - 1) {
+    currentIndex = 0;
+  } else {
+    currentIndex += 1;
+  }
+  lightBoxImgContent(
+    galleryItems[currentIndex].original,
+    galleryItems[currentIndex].description,
+  );
+}
 
-//     }
-//     return
-//   }
-
-// if (isArrowKeyRight) {
-    
-//     const nextItem = currentImage.closest('li').nextElementSibling;
-//     const fistItem = currentImage.closest('li').parentNode.fistElementChild;
-
-//     if (nextItem) {
-//       const nextImage = nextItem.querySelector('gallery__image');
-//       lightbox.classList.add('is-open');
-//       currentImage = target;
-//       lightboxImage.src = nextImage.dataset.source;
-//       lightboxImage.alt = nextImage.getAttribute('alt');
-//     }
-   
-//     else if (nextItem === null) {
-//       const firstImage = fistItam.querySelector('gallery__image');
-
-//     }
-//     return
-//   }
-
-// }
+function onArrowLeft() {
+  if (currentIndex - 1 < 0) {
+    currentIndex = galleryItems.length - 1;
+  } else {
+    currentIndex -= 1;
+  }
+  lightBoxImgContent(
+    galleryItems[currentIndex].original,
+    galleryItems[currentIndex].description,
+  );
+}
 
 
 
