@@ -94,7 +94,7 @@ function createImagesGalleryMarkup(galleryItems) {
 
     }
 
-const lightbox = document.querySelector('div.lightbox');
+const lightbox = document.querySelector('.js-lightbox');
 const lightboxImage = document.querySelector('img.lightbox__image');
 // let currentImage;
          
