@@ -97,6 +97,7 @@ function createImagesGalleryMarkup(galleryItems) {
 
 const lightbox = document.querySelector('.js-lightbox');
 const lightboxImage = document.querySelector('img.lightbox__image');
+const el = document.querySelector('li.gallery__item')
 
 let currentIndex;
 
@@ -113,6 +114,8 @@ function onImagesGalleryContainerClick(event) {
   // console.log(currentIndex=event.target.dataset.index);
   lightboxImage.src = event.target.dataset.source;
   lightboxImage.alt = event.target.getAttribute('alt');
+  lightboxImage.dataset.index = galleryItems.indexOf(event.target);
+  console.log(lightboxImage.dataset.index);
        
 };
 
