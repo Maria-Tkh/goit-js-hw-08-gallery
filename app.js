@@ -74,7 +74,7 @@ imagesGalleryContainer.addEventListener('click', onImagesGalleryContainerClick);
 
 function createImagesGalleryMarkup(galleryItems) {
         
-    return galleryItems.map(({ preview, original, description, index } ) => {
+    return galleryItems.map(({preview, original, description}, index  ) => {
         return `
         <li class="gallery__item">
             <a
@@ -97,7 +97,6 @@ function createImagesGalleryMarkup(galleryItems) {
 
 const lightbox = document.querySelector('.js-lightbox');
 const lightboxImage = document.querySelector('img.lightbox__image');
-const el = document.querySelector('li.gallery__item')
 
 let currentIndex;
 
@@ -110,13 +109,11 @@ function onImagesGalleryContainerClick(event) {
   }
     
   lightbox.classList.add('is-open');
-  
-  // console.log(currentIndex=event.target.dataset.index);
+  currentIndex=+event.target.dataset.index
+  console.log(currentIndex);
   lightboxImage.src = event.target.dataset.source;
   lightboxImage.alt = event.target.getAttribute('alt');
-  lightboxImage.dataset.index = galleryItems.indexOf(event.target);
-  console.log(lightboxImage.dataset.index);
-       
+         
 };
 
 function onCloseModal() {
@@ -174,37 +171,26 @@ function onKeyPress(event) {
     
 };
 
-
-// 1. Добавить data-index каждому элементу гал в разметку
-// 2. повесить слушателя на гал, делегирование
-// 3. При клике брать data-index и писать в currentIndex
-// 4. При отрытии модалки, вешать слушателя на keydown
-// 5. если left то onArrowLeft из предыдущего вопроса
-// 5. если right то onArrowRight из предыдущего вопроса
-
-
 function onArrowRight() {
+  console.log(currentIndex)
   if (currentIndex + 1 > galleryItems.length - 1) {
     currentIndex = 0;
   } else {
     currentIndex += 1;
   }
-  lightBoxImgContent(
-    galleryItems[currentIndex].original,
-    galleryItems[currentIndex].description,
-  );
+  lightboxImage.src = galleryItems[currentIndex].original;
+  lightboxImage.alt = galleryItems[currentIndex].description
 }
 
 function onArrowLeft() {
+  console.log(currentIndex)
   if (currentIndex - 1 < 0) {
     currentIndex = galleryItems.length - 1;
   } else {
     currentIndex -= 1;
   }
-  lightBoxImgContent(
-    galleryItems[currentIndex].original,
-    galleryItems[currentIndex].description,
-  );
+    lightboxImage.src = galleryItems[currentIndex].original;
+  lightboxImage.alt = galleryItems[currentIndex].description
 }
 
 
